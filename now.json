@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "src/index.js", "use": "@now/node" },
+    { "src": "index.html", "use": "@now/static" }
+  ],
+  "routes": [{ "src": "/users/(.*)", "dest": "src/index.js" }],
+  "env": {
+    "SERVER_SECRET": "@server-secret",
+    "SENTRY_DSN": "@sentry-dsn"
+  }
+}

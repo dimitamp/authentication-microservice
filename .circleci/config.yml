@@ -1,0 +1,28 @@
+version: 2.0
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10
+    branches:
+      only:
+        - master
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - platform-dependencies-{{ checksum "package.json" }}
+            - platform-dependencies-
+
+      - run:
+          name: Install Frontend Dependencies
+          command: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: platform-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Running Tests
+          command: npm run test
