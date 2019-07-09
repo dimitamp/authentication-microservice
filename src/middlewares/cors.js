@@ -20,7 +20,6 @@ const cors = handler => (req, res, ...restArgs) => {
   res.setHeader('access-control-allow-origin', '*');
   res.setHeader('access-control-allow-methods', allowMethods.join(','));
   res.setHeader('access-control-allow-headers', allowHeaders.join(','));
-  console.log(req.headers);
   console.log(res.headers);
   return handler(req, res, ...restArgs);
 };
