@@ -7,7 +7,7 @@ const {router} = require('microrouter');
 const {handleErrors} = require('micro-boom');
 const morgan = require('micro-morgan');
 const sendToSentry = require('micro-sentry');
-// const cors = require('./middlewares/cors');
+const cors = require('./middlewares/cors');
 
 // routes
 const indexRoutes = require('./routes/index-routes');
@@ -15,7 +15,7 @@ const userRoutes = require('./routes/user-routes');
 
 const sentryDSN = process.env.SENTRY_DSN;
 
-module.exports = sendToSentry(sentryDSN)(morgan('dev')(handleErrors(router(
+module.exports = sendToSentry(sentryDSN)(morgan('dev')(handleErrors(cors(router(
   ...indexRoutes,
   ...userRoutes
-))));
+)))));
