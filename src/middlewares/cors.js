@@ -20,14 +20,10 @@ const maxAge = 60 * 60 * 24; // 24 hours
 
 
 const cors = handler => (req, res, ...restArgs) => {
-  res.setHeader('access-control-allow-origin', '*');
-  const preflight = req.method === 'OPTIONS';
-  if (preflight) {
-    res.setHeader('access-control-allow-methods', allowMethods.join(','));
-    res.setHeader('access-control-allow-headers', allowHeaders.join(','));
-    res.setHeader('Access-Control-Max-Age', String(maxAge));
-  }
-  console.log(req.method);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', allowMethods.join(','));
+  res.setHeader('Access-Control-Allow-Headers', allowHeaders.join(','));
+  res.setHeader('Access-Control-Max-Age', String(maxAge));
   return handler(req, res, ...restArgs);
 };
 
