@@ -4,7 +4,17 @@
     { "src": "src/index.js", "use": "@now/node" },
     { "src": "index.html", "use": "@now/static" }
   ],
-  "routes": [{ "src": "/users/(.*)", "dest": "src/index.js" }],
+  "routes": [
+    {
+      "src": "/users/(.*)",
+      "dest": "src/index.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "Access-Control-Allow-Credentials": "true"
+      }
+    }
+  ],
   "env": {
     "SERVER_SECRET": "@server-secret",
     "SENTRY_DSN": "@sentry-dsn"
