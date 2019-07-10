@@ -6,17 +6,12 @@
   ],
   "routes": [
     {
-      "src": "/users/(.*)",
-      "dest": "src/index.js",
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-        "Access-Control-Allow-Credentials": "true"
-      }
+      "src": "/users/.*",
+      "dest": "src/index.js"
     }
   ],
   "env": {
     "SERVER_SECRET": "@server-secret",
-    "SENTRY_DSN": "@sentry-dsn"
+    "SERVER_PORT": "@server-port"
   }
 }

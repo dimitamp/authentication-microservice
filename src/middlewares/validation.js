@@ -1,14 +1,14 @@
-const {json, send} = require('micro');
 const validationSchemas = require('../utilities/validation/schemas');
 
-module.exports = {
-  validation: async ({req, res, schema, ...rest}) => {
-    try {
-      const body = await json(req);
-      await validationSchemas[schema].validate(body);
-      return {req, res, ...rest};
-    } catch (err) {
-      return send(res, 400, err.errors[0]);
-    }
+module.exports = async (req, res, next, schema) => {
+  try {
+    const {body} = req;
+    await validationSchemas[schema].validate(body);
+    next();
+  } catch (err) {
+    next({
+      message: `Validation Error: ${err.errors[0]}`,
+      status: 400
+    });
   }
 };

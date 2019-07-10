@@ -1,29 +1,42 @@
-const {send} = require('micro');
 const jwt = require('jsonwebtoken');
-const {path, ifElse, isNil, startsWith, slice, identity} = require('ramda');
+const {path, ifElse, isNil, startsWith, slice, identity, pipe} = require('ramda');
 
 
 const secret = process.env.SERVER_SECRET;
 
 module.exports = {
-  authorization: async ({req, res, ...rest}) => {
-    let token = path(['query', 'token'], req)
-    || path(['headers', 'x-access-token'], req)
-    || path(['headers', 'authorization'], req);
-    token = ifElse(
-      t => !isNil(t) && startsWith('Bearer ', t),
-      t => slice(7, t.length, t).trimLeft(),
-      identity
-    )(token);
-    try {
-      if (isNil(token)) {
-        return send(res, 403, 'Authorization Error: Missing token');
-      }
-      const decoded = await jwt.verify(token, secret);
-      req.decoded = decoded;
-      return ({req, res, ...rest});
-    } catch (err) {
-      return send(res, 403, 'Authorization Error: Invalid token');
-    }
-  }
+  authorization: (req, res, next) =>
+    pipe(
+      r =>
+        path(['query', 'token'], r)
+          || path(['headers', 'x-access-token'], r)
+          || path(['headers', 'authorization'], r),
+      ifElse(
+        t => !isNil(t) && startsWith('Bearer ', t),
+        t => slice(7, t.length, t).trimLeft(),
+        identity
+      ),
+      ifElse(
+        isNil,
+        () =>
+          next({
+            message: 'AuthorizationError: token missing.',
+            status: 403
+          }),
+        token =>
+          jwt.verify(token, secret, (e, d) =>
+            ifElse(
+              err => !isNil(err),
+              () =>
+                next({
+                  message: 'AuthorizationError: Failed to verify token.',
+                  status: 403
+                }),
+              (_, decoded) => {
+                req.decoded = decoded;
+                return next();
+              }
+            )(e, d))
+      )
+    )(req)
 };
