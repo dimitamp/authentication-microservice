@@ -12,6 +12,7 @@
   ],
   "env": {
     "SERVER_SECRET": "@server-secret",
-    "SERVER_PORT": "@server-port"
+    "SERVER_PORT": "@server-port",
+    "MONGO_DB_URI": "@mongodb-uri"
   }
 }

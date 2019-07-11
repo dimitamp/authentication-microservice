@@ -4,6 +4,7 @@
     "commonjs": true,
     "es6": true
   },
+  "plugins": ["ava"],
   "extends": "airbnb-base",
   "globals": {
     "Atomics": "readonly",
@@ -27,6 +28,7 @@
     "no-trailing-spaces": "off",
     "no-underscore-dangle": "off",
     "no-multiple-empty-lines": "warn",
+    "no-param-reassign": 0,
     "key-spacing": "warn",
     "no-unused-vars": [
       "error",

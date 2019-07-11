@@ -1,12 +1,13 @@
 {
-  "name": "sities-platform-backend",
+  "name": "authentication-microservice",
   "version": "1.0.0",
-  "description": "Authentication Server for Sities Platform",
+  "description": "Authentication Microservice",
   "main": "src/index.js",
   "scripts": {
     "start": "NODE_ENV=production node src/index.js",
     "dev": "NODE_ENV=development nodemon src/index.js",
-    "test": "ava",
+    "test": "ava | tap-nyan",
+    "cover": "nyc ava | tap-nyan",
     "lint": "./node_modules/.bin/eslint src"
   },
   "engines": {
@@ -15,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
@@ -22,6 +24,8 @@
     "express": "^4.16.4",
     "helmet": "^3.18.0",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.4",
+    "mongoose-beautiful-unique-validation": "^7.1.1",
     "morgan": "^1.9.1",
     "path": "^0.12.7",
     "ramda": "^0.26.1",
@@ -31,11 +35,30 @@
     "ava": "^2.1.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-ava": "^7.1.0",
     "eslint-plugin-import": "^2.18.0",
     "husky": "^3.0.0",
     "lint-staged": "^9.1.0",
     "micro-dev": "^3.0.0",
-    "supertest": "^4.0.2"
+    "nyc": "^14.1.1",
+    "supertest": "^4.0.2",
+    "tap-nyan": "^1.1.0"
+  },
+  "ava": {
+    "files": [
+      "__tests__/**/*.test.js"
+    ],
+    "failFast": true,
+    "tap": true,
+    "verbose": true,
+    "timeout": "10s"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text",
+      "html"
+    ]
   },
   "husky": {
     "hooks": {

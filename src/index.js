@@ -9,6 +9,7 @@ const compression = require('compression');
 const cors = require('cors');
 const {error} = require('./middlewares');
 const routes = require('./routes');
+const {mongoose} = require('./config');
 
 const app = express();
 app.use(helmet());
@@ -22,6 +23,9 @@ if (process.env.NODE_ENV !== 'test') {
 }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+// Mongo configuration
+mongoose();
 
 // Routes
 app.use('/', routes);

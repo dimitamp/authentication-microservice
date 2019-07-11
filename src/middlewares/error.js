@@ -7,12 +7,14 @@ const withFormatMessageForProduction = ifElse(
   identity
 );
 
-module.exports = (error, req, res, next) => {
-  console.error(error);
-  return pipe(
+module.exports = (error, req, res, next) => 
+  /**
+     * @name error
+     * @description Middleware that handles errors
+     */
+  pipe(
     e => ({...e, message: e.message}),
     ifElse(has('status'), identity, assoc('status', 500)),
     withFormatMessageForProduction,
     fError => res.status(fError.status).json(fError)
   )(error);
-};
