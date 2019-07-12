@@ -16,10 +16,13 @@ const authenticate = yup.object().shape({
 const register = yup.object().shape({
   email: yup
     .string()
+    .trim()
+    .lowercase()
     .email()
     .required(),
   password: yup
     .string()
+    .trim()
     .min(min)
     .required(),
   role: yup

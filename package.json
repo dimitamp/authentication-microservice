@@ -6,8 +6,11 @@
   "scripts": {
     "start": "NODE_ENV=production node src/index.js",
     "dev": "NODE_ENV=development nodemon src/index.js",
-    "test": "ava | tap-nyan",
-    "cover": "nyc ava | tap-nyan",
+    "test": "SERVER_PORT=0 ava",
+    "test:nyan": "SERVER_PORT=0 ava --tap | tap-nyan",
+    "cover": "SERVER_PORT=0 nyc ava",
+    "cover:nyan": "SERVER_PORT=0 nyc ava --tap | tap-nyan",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "./node_modules/.bin/eslint src"
   },
   "engines": {
@@ -49,7 +52,6 @@
       "__tests__/**/*.test.js"
     ],
     "failFast": true,
-    "tap": true,
     "verbose": true,
     "timeout": "10s"
   },

@@ -1,5 +1,5 @@
 const express = require('express');
-const {validation} = require('../middlewares');
+const {validation, authorization, identification} = require('../middlewares');
 const {helpers: {jwtSign}} = require('../utilities/authentication');
 
 
@@ -64,5 +64,29 @@ router.post(
   }
 );
 
+
+router.delete(
+  '/:id',
+  authorization,
+  identification,
+  async (req, res, next) => {
+    const {id} = req.params;
+    try {
+      const user = await User.findByIdAndRemove(id);
+      if (user) {
+        return res.json({
+          ok: true,
+          message: 'User deleted'
+        });
+      }
+      return next({
+        status: 404,
+        message: "Resource error: User doesn't exist"
+      });
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
 
 module.exports = router;

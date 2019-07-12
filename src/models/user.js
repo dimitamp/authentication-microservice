@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema(
       required: [true, 'User role is required'],
       type: String,
       enum: roles
-    }
+    },
   },
   {timestamps: true}
 );

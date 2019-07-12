@@ -3,7 +3,7 @@ const {schemas: validationSchemas} = require('../utilities/validation');
 module.exports = async (req, res, next, schema) => {
   /**
      * @name validation
-     * @description Middleware that test the validity of a body given a specified schema
+     * @description Middleware that tests the validity of a body given a specified schema
      */
   try {
     const {body} = req;

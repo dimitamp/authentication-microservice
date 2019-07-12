@@ -1,8 +1,4 @@
-import test from 'ava';
-
-const request = require('supertest');
-const app = require('../src/index');
-const User = require('../src/models/user');
+const {User, app, request, test} = require('./common');
 
 test.after('Cleanup', async () => {
   await User.deleteOne({email: 'test@email.com'});
@@ -38,6 +34,13 @@ test('Signup: Fail => incorrect password', async (t) => {
   const res = await request(app)
     .post('/users')
     .send({email: 'test@email.com', password: '0123467', role: 'developer'});
+  t.is(res.status, 400);
+});
+
+test('Signup: Fail => empty password', async (t) => {
+  const res = await request(app)
+    .post('/users')
+    .send({email: 'test@email.com', password: '        ', role: 'developer'});
   t.is(res.status, 400);
 });
 
