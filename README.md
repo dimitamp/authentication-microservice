@@ -1,4 +1,31 @@
-# ΣΥΤΗΕΣ Platform Backend
+# Authentication Microservice
 
-Σκοπός του έργου ΣΥΤΗΕΣ είναι η δημιουργία ενός συστήματος υποστήριξης τρίτης ηλικίας
-με έξυπνες συσκευές.
+A microservice that provides authentication / authorization features.
+
+## Quick Start
+
+- Install dependencies:
+
+```bash
+$ npm i
+```
+
+### Development
+
+```bash
+$ npm run dev
+```
+
+### Production
+
+```bash
+$ npm start
+```
+
+#### Test
+
+```bash
+$ npm run lint
+$ npm run cover
+$ npm test
+```
