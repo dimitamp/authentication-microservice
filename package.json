@@ -57,8 +57,7 @@
   "nyc": {
     "reporter": [
       "lcov",
-      "text",
-      "html"
+      "json"
     ]
   },
   "husky": {
