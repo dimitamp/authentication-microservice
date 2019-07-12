@@ -27,6 +27,6 @@ jobs:
 
       - run:
           name: Running Tests
-          command: npm run test
+          command: npm run cover
       - codecov/upload:
-          file: /coverage/lcov.info
+          file: coverage/lcov.info
