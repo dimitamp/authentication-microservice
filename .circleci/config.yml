@@ -29,4 +29,4 @@ jobs:
           name: Running Tests
           command: npm run test
       - codecov/upload:
-          file: { { '/coverage/lcov.info' } }
+          file: /coverage/lcov.info

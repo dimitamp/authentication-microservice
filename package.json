@@ -10,7 +10,6 @@
     "test:nyan": "SERVER_PORT=0 ava --tap | tap-nyan",
     "cover": "SERVER_PORT=0 nyc ava",
     "cover:nyan": "SERVER_PORT=0 nyc ava --tap | tap-nyan",
-    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "lint": "./node_modules/.bin/eslint src"
   },
   "engines": {
