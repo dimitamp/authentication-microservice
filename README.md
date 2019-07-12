@@ -2,7 +2,7 @@
 
 A microservice that provides authentication / authorization features.
 
-[![CircleCI](https://circleci.com/gh/dimitamp/authentication-microservice/tree/master.svg?style=svg)](https://circleci.com/gh/dimitamp/authentication-microservice/tree/master)
+[![CircleCI](https://circleci.com/gh/dimitamp/authentication-microservice/tree/master.svg?style=svg)](https://github.com/dimitamp/authentication-microservice)
 
 ## Quick Start
 
