@@ -71,7 +71,7 @@
     }
   },
   "lint-staged": {
-    "src/**/**/*.js": [
+    "*.js,!/apidoc/**": [
       "npm run lint"
     ]
   }
