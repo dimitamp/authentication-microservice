@@ -101,6 +101,7 @@ router.post(
           message: 'Registration Error: A user with this e-mail  already exists.'
         });
       }
+      const mpampis;
       const newUser = await new User({
         email,
         password,
