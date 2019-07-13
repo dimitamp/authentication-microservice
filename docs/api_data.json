@@ -1,0 +1,323 @@
+[
+  {
+    "type": "post",
+    "url": "/users/",
+    "title": "Creates a new User",
+    "name": "PostUsers",
+    "group": "User",
+    "version": "1.0.0",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Required email</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "size": "8..",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Required password</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"role1\"",
+              "\"role2\"",
+              "\"role3\""
+            ],
+            "optional": false,
+            "field": "role",
+            "description": "<p>Required role</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-example: ",
+          "content": "{\n   \"email\": \"test@email.com\", \n   \"password\": \"01234567\",\n   \"role\": \"role1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Authorization token.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "user",
+            "description": "<p>User information.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user.email",
+            "description": "<p>User's email.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user.role",
+            "description": "<p>User' role.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user.id",
+            "description": "<p>User's id.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  user: {\n      \"id\": \"5d0bd41c2b85baa50300002d\",\n      \"email\": \"test@email.com\",\n      \"role\": \"role1\"\n  },\n  token: \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQwYmQ0MWMyYjg1YmFhNTAzMDAw\n          MDJkIiwiZW1haWwiOiJmb25pa2hteWdhQGdtYWlsLmNvbSIsImlhdCI6MTU2MjEwMjc4N30.I64zY_Fj-\n          D30vttEDMaQBPaheuTLGX1F1Ap5pynpOBs\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UserAlreadyExists",
+            "description": "<p>A user with this e-mail already exists.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "MissingEmail",
+            "description": "<p>Missing required parameter e-mail.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidEmail",
+            "description": "<p>Invalid required parameter e-mail.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "MissingPassword",
+            "description": "<p>Missing required parameter password.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidPassword",
+            "description": "<p>Invalid required parameter e-mail.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 409 Resource Conflict\n{\n  \"status\": 409\n  \"message\": \"Registration Error: A user with this e-mail  already exists.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: E-mail is required.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: E-mail is invalid.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: Password is required.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: Password must have at least 8 characters.\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/users/authenticate",
+    "title": "Authenticates a user",
+    "name": "PostUsersAuthenticate",
+    "version": "1.0.0",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Required email</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "size": "8..",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Required password</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-example: ",
+          "content": "{\n   \"email\": \"test@email.com\", \n   \"password\": \"01234567\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>Authorization token.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "user",
+            "description": "<p>User information.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user.email",
+            "description": "<p>User's email.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user.role",
+            "description": "<p>User' role.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user.id",
+            "description": "<p>User's id.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  user: {\n      \"id\": \"5d0bd41c2b85baa50300002d\",\n      \"email\": \"test@email.com\",\n      \"role\": \"role1\"\n  },\n  token: \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQwYmQ0MWMyYjg1YmFhNTAzMDAw\n          MDJkIiwiZW1haWwiOiJmb25pa2hteWdhQGdtYWlsLmNvbSIsImlhdCI6MTU2MjEwMjc4N30.I64zY_Fj-\n          D30vttEDMaQBPaheuTLGX1F1Ap5pynpOBs\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UserDoesntExist",
+            "description": "<p>A user with this e-mail not found.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidCredentials",
+            "description": "<p>Password doesn't match with given e-mail.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "MissingEmail",
+            "description": "<p>Missing required parameter e-mail.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidEmail",
+            "description": "<p>Invalid required parameter e-mail.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "MissingPassword",
+            "description": "<p>Missing required parameter password.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidPassword",
+            "description": "<p>Invalid required parameter e-mail.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 401 Authentication error\n{\n  \"status\": 401\n  \"message\": \"Authentication Error: A user with this e-mail  not found.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 401 Authentication error\n{\n  \"status\": 401\n  \"message\": \"Authentication Error: Password doesn't match with given e-mail.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: E-mail is required.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: E-mail is invalid.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: Password is required.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: Password must have at least 8 characters.\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/users.js",
+    "groupTitle": "User"
+  }
+]

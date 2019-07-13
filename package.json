@@ -1,7 +1,7 @@
 {
   "name": "authentication-microservice",
   "version": "1.0.0",
-  "description": "Authentication Microservice",
+  "description": "A microservice that provides authentication / authorization features.",
   "main": "src/index.js",
   "scripts": {
     "start": "NODE_ENV=production node src/index.js",
@@ -9,7 +9,7 @@
     "test": "SERVER_PORT=0 ava",
     "test:nyan": "SERVER_PORT=0 ava --tap | tap-nyan",
     "cover": "SERVER_PORT=0 nyc ava",
-    "cover:nyan": "SERVER_PORT=0 nyc ava --tap | tap-nyan",
+    "api-doc": "apidoc -i src/routes/ -o docs/",
     "lint": "./node_modules/.bin/eslint src"
   },
   "engines": {
@@ -34,6 +34,7 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "apidoc": "^0.17.7",
     "ava": "^2.1.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
@@ -41,10 +42,14 @@
     "eslint-plugin-import": "^2.18.0",
     "husky": "^3.0.0",
     "lint-staged": "^9.1.0",
-    "micro-dev": "^3.0.0",
     "nyc": "^14.1.1",
     "supertest": "^4.0.2",
     "tap-nyan": "^1.1.0"
+  },
+  "apidoc": {
+    "title": "Authentication Microservice",
+    "url": "https://authentication-microservice.now.sh",
+    "forceLanguage": "en"
   },
   "ava": {
     "files": [
@@ -66,7 +71,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "src/*.js": [
       "npm run lint"
     ]
   }
