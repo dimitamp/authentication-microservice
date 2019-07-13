@@ -11,7 +11,7 @@
       "dest": "src/index.js"
     },
     {
-      "src": "/docs",
+      "src": "/docs/.*",
       "dest": "docs/index.html"
     }
   ],
