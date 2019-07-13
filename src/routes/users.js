@@ -6,11 +6,100 @@ const {helpers: {jwtSign}} = require('../utilities/authentication');
 const router = express.Router();
 
 const User = require('../models/user');
+const Reset = require('../models/reset');
+
+/**
+ * @apiDefine MissingTokenError
+ * @apiError TokenMissing No authorization token was provided.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 403 Authorization Error
+ *     {
+ *       "status": 403
+ *       "message": "Authorization Error: token missing."
+ *     }
+ */
+
+/**
+ * @apiDefine InvalidTokenError
+ * @apiError InvalidToken Failed to verify token.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 403 Authorization Error
+ *     {
+ *       "status": 403
+ *       "message": "Authorization Error: Failed to verify token."
+ *     }
+ */
+
+/**
+ * @apiDefine InsufficientPrivilegesError
+ * @apiError InsufficientPrivileges Parameter id doesnt match decoded token's id.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 403 Authorization Error
+ *     {
+ *       "status": 403
+ *       "message": "Authorization Error: Insufficient privileges."
+ *     }
+ */
+
+/**
+ * @apiDefine UserNotFoundError
+ * @apiError UserDoesntExist A user with this id doesnt exist.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 404 Resource not found
+ *     {
+ *       "status": 404
+ *       "message": "Resource Error: User not found."
+ *     }
+ */
+
+/**
+ * @apiDefine MissingEmailError
+ * @apiError MissingEmail Missing required parameter e-mail.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": 400
+ *       "message": "Validation Error: E-mail is required."
+ *     }
+ */
+
+/**
+ * @apiDefine InvalidEmailError
+ * @apiError InvalidEmail Invalid required parameter e-mail.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": 400
+ *       "message": "Validation Error: E-mail is invalid."
+ *     }
+ */
+
+/** 
+ * @apiDefine MissingPasswordError
+ * @apiError MissingPassword Missing required parameter password.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": 400
+ *       "message": "Validation Error: Password is required."
+ *     }
+ */
+
+/**
+ * @apiDefine InvalidPasswordError
+ * @apiError InvalidPassword Invalid required parameter e-mail.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": 400
+ *       "message": "Validation Error: Password must have at least 8 characters."
+ *     }
+ */
 
 
 /**
  * @api {post} /users/ Creates a new User
- * @apiName PostUsers
+ * @apiName PostUser
  * @apiGroup User
  * @apiVersion 1.0.0
  *
@@ -52,41 +141,10 @@ const User = require('../models/user');
  *       "message": "Registration Error: A user with this e-mail  already exists."
  *     }
  * 
- * @apiError MissingEmail Missing required parameter e-mail.
- *
- * @apiErrorExample {json} Error-Response:
- *     HTTP/1.1 400 Bad Request
- *     {
- *       "status": 400
- *       "message": "Validation Error: E-mail is required."
- *     }
- * 
- * @apiError InvalidEmail Invalid required parameter e-mail.
- *
- * @apiErrorExample {json} Error-Response:
- *     HTTP/1.1 400 Bad Request
- *     {
- *       "status": 400
- *       "message": "Validation Error: E-mail is invalid."
- *     }
- * 
- * @apiError MissingPassword Missing required parameter password.
- *
- * @apiErrorExample {json} Error-Response:
- *     HTTP/1.1 400 Bad Request
- *     {
- *       "status": 400
- *       "message": "Validation Error: Password is required."
- *     }
- * 
- * @apiError InvalidPassword Invalid required parameter e-mail.
- *
- * @apiErrorExample {json} Error-Response:
- *     HTTP/1.1 400 Bad Request
- *     {
- *       "status": 400
- *       "message": "Validation Error: Password must have at least 8 characters."
- *     }
+ * @apiUse MissingEmailError
+ * @apiuse InvalidEmailError
+ * @apiUse MissingPasswordError
+ * @apiUse InvalidPasswordError
  */
 router.post(
   '/',
@@ -118,7 +176,7 @@ router.post(
 
 /**
  * @api {post} /users/authenticate Authenticates a user
- * @apiName PostUsersAuthenticate
+ * @apiName AuthenticateUser
  * @apiVersion 1.0.0
  * @apiGroup User
  *
@@ -166,41 +224,11 @@ router.post(
  *       "status": 401
  *       "message": "Authentication Error: Password doesn't match with given e-mail."
  *     }
-  * @apiError MissingEmail Missing required parameter e-mail.
- *
- * @apiErrorExample {json} Error-Response:
- *     HTTP/1.1 400 Bad Request
- *     {
- *       "status": 400
- *       "message": "Validation Error: E-mail is required."
- *     }
  * 
- * @apiError InvalidEmail Invalid required parameter e-mail.
- *
- * @apiErrorExample {json} Error-Response:
- *     HTTP/1.1 400 Bad Request
- *     {
- *       "status": 400
- *       "message": "Validation Error: E-mail is invalid."
- *     }
- * 
- * @apiError MissingPassword Missing required parameter password.
- *
- * @apiErrorExample {json} Error-Response:
- *     HTTP/1.1 400 Bad Request
- *     {
- *       "status": 400
- *       "message": "Validation Error: Password is required."
- *     }
- * 
- * @apiError InvalidPassword Invalid required parameter e-mail.
- *
- * @apiErrorExample {json} Error-Response:
- *     HTTP/1.1 400 Bad Request
- *     {
- *       "status": 400
- *       "message": "Validation Error: Password must have at least 8 characters."
- *     }
+ * @apiUse MissingEmailError
+ * @apiuse InvalidEmailError
+ * @apiUse MissingPasswordError
+ * @apiUse InvalidPasswordError
  */
 
 router.post(
@@ -232,6 +260,33 @@ router.post(
   }
 );
 
+/**
+ * @api {delete} /users/:id Deletes a User
+ * @apiName DeleteUser
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiHeader {String} Authorization Authorization token
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQwYmQ0MWMyYjg1YmFhNTAzMDAw
+ *               MDJkIiwiZW1haWwiOiJmb25pa2hteWdhQGdtYWlsLmNvbSIsImlhdCI6MTU2MjEwMjc4N30.I64zY_Fj-
+ *               D30vttEDMaQBPaheuTLGX1F1Ap5pynpOBs"
+ *     }
+ *
+ * @apiParam {String} id User's unique id
+ * 
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       ok: true
+ *       message: "User deleted"
+ *     }
+ * 
+ * @apiUse MissingTokenError
+ * @apiUse InvalidTokenError
+ * @apiUse InsufficientPrivilegesError
+ * @apiUse UserNotFoundError
+ */
 
 router.delete(
   '/:id',
@@ -249,8 +304,53 @@ router.delete(
       }
       return next({
         status: 404,
-        message: "Resource error: User doesn't exist"
+        message: 'Resource error: User not found.'
       });
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
+
+/**
+ * @api {post} /users/changepassword Creates a password reset token for a user
+ * @apiName RequestReset
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiParam {String} email User's email
+ * 
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQwYmQ0MWMyYjg1YmFhNTAzMDAw
+ *               MDJkIiwiZW1haWwiOiJmb25pa2hteWdhQGdtYWlsLmNvbSIsImlhdCI6MTU2MjEwMjc4N30.I64zY_Fj-
+ *               D30vttEDMaQBPaheuTLGX1F1Ap5pynpOBs"
+ *     }
+ * 
+ * @apiUse MissingEmailError
+ * @apiUse InvalidEmailError
+ * @apiUse UserNotFoundError
+ */
+
+router.post(
+  '/changepassword',
+  (req, res, next) => validation(req, res, next, 'request'),
+  async (req, res, next) => {
+    const {email} = req.body;
+    try {
+      const user = await User.findOne({email});
+      if (!user) {
+        return next({
+          status: 404,
+          message: 'Resource Error: User not found.'
+        });
+      }
+      const token = jwtSign({email});
+      await new Reset({
+        email,
+        token,
+      }).save();
+      return res.json({token});
     } catch (error) {
       return next(error);
     }

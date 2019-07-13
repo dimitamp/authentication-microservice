@@ -1,23 +1,23 @@
 {
   "version": 2,
   "builds": [
-    { "src": "src/index.js", "use": "@now/node" },
-    { "src": "index.html", "use": "@now/static" },
-    { "src": "docs/index.html", "use": "@now/static" }
+    {
+      "src": "src/index.js",
+      "use": "@now/node",
+      "config": {
+        "maxLambdaSize": "20mb"
+      }
+    }
   ],
   "routes": [
     {
-      "src": "/users/.*",
+      "src": "/.*",
       "dest": "src/index.js"
-    },
-    {
-      "src": "/docs/.*",
-      "dest": "docs/index.html"
     }
   ],
   "env": {
     "SERVER_SECRET": "@server-secret",
     "SERVER_PORT": "@server-port",
-    "MONGO_DB_URI": "@mongodb-uri"
+    "MONGODB_URI": "@mongodb-uri"
   }
 }

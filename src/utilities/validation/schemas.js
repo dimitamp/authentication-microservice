@@ -1,6 +1,13 @@
 const yup = require('yup');
 const {min, roles} = require('./constants');
 
+const request = yup.object().shape({
+  email: yup
+    .string()
+    .email()
+    .required(),
+});
+
 const authenticate = yup.object().shape({
   email: yup
     .string()
@@ -30,4 +37,4 @@ const register = yup.object().shape({
     .required()
 });
 
-module.exports = {authenticate, register};
+module.exports = {authenticate, register, request};

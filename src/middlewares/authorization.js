@@ -23,7 +23,7 @@ module.exports = (req, res, next) => {
       isNil,
       () =>
         next({
-          message: 'AuthorizationError: token missing.',
+          message: 'Authorization Error: token missing.',
           status: 403
         }),
       token =>
@@ -32,7 +32,7 @@ module.exports = (req, res, next) => {
             err => !isNil(err),
             () =>
               next({
-                message: 'AuthorizationError: Failed to verify token.',
+                message: 'Authorization Error: Failed to verify token.',
                 status: 403
               }),
             (_, decoded) => {

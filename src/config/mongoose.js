@@ -11,7 +11,7 @@ const mongooseOptions = {
   keepAliveInitialDelay: 300000
 };
 const mongodbUri = process.env.NODE_ENV !== 'test' 
-  ? process.env.MONGODB_URI 
+  ? process.env.MONGODB_URI
   : 'mongodb://localhost/authentication-test';
 
 module.exports = () => {
