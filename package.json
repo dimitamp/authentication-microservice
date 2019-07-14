@@ -55,7 +55,6 @@
     "files": [
       "__tests__/**/*.test.js"
     ],
-    "failFast": true,
     "verbose": true,
     "timeout": "10s"
   },

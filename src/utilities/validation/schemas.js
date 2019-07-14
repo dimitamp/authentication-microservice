@@ -1,40 +1,37 @@
 const yup = require('yup');
 const {min, roles} = require('./constants');
 
-const request = yup.object().shape({
-  email: yup
-    .string()
-    .email()
-    .required(),
-});
+const email = yup
+  .string()
+  .lowercase()
+  .trim()
+  .email()
+  .required();
+
+const password = yup
+  .string()
+  .trim()
+  .min(min)
+  .required();
+
+const role = yup
+  .string().oneOf(roles)
+  .required();
+
+const request = yup.object().shape({email});
 
 const authenticate = yup.object().shape({
-  email: yup
-    .string()
-    .email()
-    .required(),
-  password: yup
-    .string()
-    .min(min)
-    .required()
+  email,
+  password
 });
 
 
 const register = yup.object().shape({
-  email: yup
-    .string()
-    .trim()
-    .lowercase()
-    .email()
-    .required(),
-  password: yup
-    .string()
-    .trim()
-    .min(min)
-    .required(),
-  role: yup
-    .string().oneOf(roles)
-    .required()
+  email,
+  password,
+  role
 });
 
-module.exports = {authenticate, register, request};
+const change = yup.object().shape({password});
+
+module.exports = {authenticate, register, request, change};

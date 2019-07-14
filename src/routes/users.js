@@ -313,7 +313,7 @@ router.delete(
 );
 
 /**
- * @api {post} /users/changepassword Creates a password reset token for a user
+ * @api {post} /users/resetpassword Creates a password reset token for a user
  * @apiName RequestReset
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -333,7 +333,7 @@ router.delete(
  */
 
 router.post(
-  '/changepassword',
+  '/resetpassword',
   (req, res, next) => validation(req, res, next, 'request'),
   async (req, res, next) => {
     const {email} = req.body;
@@ -351,6 +351,69 @@ router.post(
         token,
       }).save();
       return res.json({token});
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
+
+
+/**
+ * @api {post} /users/changepassword Changes a user's password
+ * @apiName RequestChange
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiParam {String} password User's new password
+ * 
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *      ok: true,
+ *      message: "Password was changed"
+ *     }
+ * 
+ * @apiError ExpiredToken Reset token has expired.
+ *
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 401 Resource error
+ *     {
+ *       "status": 410
+ *       "message": "Resource Error: Reset token has expired."
+ *     }
+ * 
+ * @apiUse MissingPasswordError
+ * @apiUse InvalidPasswordError
+ * @apiUse UserNotFoundError
+ */
+
+router.post(
+  '/changepassword',
+  (req, res, next) => validation(req, res, next, 'change'),
+  authorization,
+  async (req, res, next) => {
+    const {password} = req.body;
+    const {email} = req.decoded;
+    try {
+      const user = await User.findOne({email});
+      if (!user) {
+        return next({
+          status: 404,
+          message: 'Resource Error: User not found.'
+        });
+      }
+      const reset = await Reset.findOneAndRemove({email});
+      if (!reset) {
+        return next({
+          status: 410,
+          message: ' Resource Error: Reset token has expired.'
+        });
+      }
+      user.password = password;
+      await user.save();
+      return res.json({
+        ok: true,
+        message: 'Password was changed.'
+      });
     } catch (error) {
       return next(error);
     }
