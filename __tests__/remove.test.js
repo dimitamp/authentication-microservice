@@ -39,7 +39,7 @@ test('Remove: Fail => invalid token', async (t) => {
 
 test('Remove: Fail => insufficient privileges', async (t) => {
   const res = await request(app)
-    .delete('/users/sugardaddy')
+    .delete('/users/lamouchefatale')
     .set('Authorization', t.context.token);
   t.is(res.status, 403);
 });

@@ -13,7 +13,7 @@ test.before('Setup', async (t) => {
   }).save();
   t.context.user = user;
   t.context.reset = reset;
-  t.context.invalid = {token: jwtSign({email: 'sugardaddy@email.com'})};
+  t.context.invalid = {token: jwtSign({email: 'lamouchefatale@email.com'})};
 });
 
 test.after('Cleanup', async () => {

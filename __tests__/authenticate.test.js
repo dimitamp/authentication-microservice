@@ -37,7 +37,7 @@ test('Authenticate: Fail => password mismatch', async (t) => {
 test('Authenticate: Fail => non existing user', async (t) => {
   const res = await request(app)
     .post('/users/authenticate')
-    .send({email: 'sugardaddy@email.com', password: 'lollipop'});
+    .send({email: 'lamouchefatale@email.com', password: 'lollipop'});
   t.is(res.status, 401);
 });
 
@@ -53,14 +53,14 @@ test('Authenticate: Fail => missing email', async (t) => {
 test('Authenticate: Fail => invalid email', async (t) => {
   const res = await request(app)
     .post('/users/authenticate')
-    .send({email: 'sugardaddy', password: 'lollipop'});
+    .send({email: 'lamouchefatale', password: 'lollipop'});
   t.is(res.status, 400);
 });
 
 test('Authenticate: Fail => issing password', async (t) => {
   const res = await request(app)
     .post('/users/authenticate')
-    .send({email: 'sugardaddy@email.com'});
+    .send({email: 'lamouchefatale@email.com'});
   t.is(res.status, 400);
 });
 
@@ -68,6 +68,6 @@ test('Authenticate: Fail => issing password', async (t) => {
 test('Authenticate: Fail => invalid Password', async (t) => {
   const res = await request(app)
     .post('/users/authenticate')
-    .send({email: 'sugardaddy@email.com', password: 'lolli'});
+    .send({email: 'lamouchefatale@email.com', password: 'lolli'});
   t.is(res.status, 400);
 });

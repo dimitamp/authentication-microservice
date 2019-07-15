@@ -54,7 +54,7 @@ test('Signup: Fail => missing role', async (t) => {
 test('Signup: Fail => incorrect role', async (t) => {
   const res = await request(app)
     .post('/users')
-    .send({email: 'test1@email.com', password: '01234567', role: 'sugardaddy'});
+    .send({email: 'test1@email.com', password: '01234567', role: 'lamouchefatale'});
   t.is(res.status, 400);
 });
 

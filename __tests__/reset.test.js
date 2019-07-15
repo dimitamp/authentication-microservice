@@ -38,6 +38,6 @@ test('Reset: Fail => invalid email', async (t) => {
 test('Reset: Fail => non existing user', async (t) => {
   const res = await request(app)
     .post('/users/resetpassword')
-    .send({email: 'sugardaddy@email.com'});
+    .send({email: 'lamouchefatale@email.com'});
   t.is(res.status, 404);
 });
