@@ -27,11 +27,11 @@ $ npm i
 
 ```bash
 $ npm run dev
-```.
+```
 
 ## Production
 
-```bash
+```bash.
 $ npm start
 ```
 
