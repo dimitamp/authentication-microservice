@@ -20,7 +20,7 @@ test.after('Cleanup', async () => {
   await User.deleteOne({email: 'test5@email.com'});
 });
 
-test('Change: Success', async (t) => {
+test.serial('Change: Success', async (t) => {
   const res = await request(app)
     .post('/users/changepassword')
     .set('Authorization', t.context.reset.token)
