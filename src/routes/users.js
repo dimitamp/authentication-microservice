@@ -43,7 +43,7 @@ const Reset = require('../models/reset');
 
 /**
  * @apiDefine UserNotFoundError
- * @apiError UserDoesntExist A user with this id doesnt exist.
+ * @apiError UserDoesntExist User doesn't exist.
  * @apiErrorExample {json} Error-Response:
  *     HTTP/1.1 404 Resource not found
  *     {
@@ -87,7 +87,7 @@ const Reset = require('../models/reset');
 
 /**
  * @apiDefine InvalidPasswordError
- * @apiError InvalidPassword Invalid required parameter e-mail.
+ * @apiError InvalidPassword Invalid required parameter password.
  * @apiErrorExample {json} Error-Response:
  *     HTTP/1.1 400 Bad Request
  *     {
@@ -98,7 +98,7 @@ const Reset = require('../models/reset');
 
 
 /**
- * @api {post} /users/ Creates a new User
+ * @api {post} /users/create Creates a new User
  * @apiName PostUser
  * @apiGroup User
  * @apiVersion 1.0.0
@@ -132,13 +132,13 @@ const Reset = require('../models/reset');
  *               D30vttEDMaQBPaheuTLGX1F1Ap5pynpOBs"
  *     }
  *
- * @apiError UserAlreadyExists A user with this e-mail already exists.
+ * @apiError UserAlreadyExists User already exists.
  *
  * @apiErrorExample {json} Error-Response:
  *     HTTP/1.1 409 Resource Conflict
  *     {
  *       "status": 409
- *       "message": "Registration Error: A user with this e-mail  already exists."
+ *       "message": "Registration Error: User already exists."
  *     }
  * 
  * @apiUse MissingEmailError
@@ -147,7 +147,7 @@ const Reset = require('../models/reset');
  * @apiUse InvalidPasswordError
  */
 router.post(
-  '/',
+  '/create',
   (req, res, next) => validation(req, res, next, 'register'),
   async (req, res, next) => {
     const {email, password, role} = req.body;
@@ -156,7 +156,7 @@ router.post(
       if (user) {
         return next({
           status: 409,
-          message: 'Registration Error: A user with this e-mail  already exists.'
+          message: 'Registration Error: User already exists.'
         });
       }
       const newUser = await new User({
@@ -207,13 +207,13 @@ router.post(
  *               D30vttEDMaQBPaheuTLGX1F1Ap5pynpOBs"
  *     }
  *
- * @apiError UserDoesntExist A user with this e-mail not found.
+ * @apiError UserDoesntExist User not found.
  *
  * @apiErrorExample {json} Error-Response:
  *     HTTP/1.1 401 Authentication error
  *     {
  *       "status": 401
- *       "message": "Authentication Error: A user with this e-mail  not found."
+ *       "message": "Authentication Error: User not found."
  *     }
  * 
  * @apiError InvalidCredentials Password doesn't match with given e-mail.
@@ -241,7 +241,7 @@ router.post(
       if (!user) {
         return next({
           status: 401,
-          message: 'Authentication Error: User with this email not found.'
+          message: 'Authentication Error: User not found.'
         });
       }
       if (!user.comparePassword(password, user.password)) {

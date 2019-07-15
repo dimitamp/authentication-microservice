@@ -6,7 +6,7 @@ test.after('Cleanup', async () => {
 
 test.serial('Signup: Success', async (t) => {
   const res = await request(app)
-    .post('/users')
+    .post('/users/create')
     .send({email: 'test1@email.com', password: '01234567', role: 'developer'});
 
   t.is(res.status, 200);
@@ -18,56 +18,56 @@ test.serial('Signup: Success', async (t) => {
 
 test('Signup: Fail => user exists', async (t) => {
   const res = await request(app)
-    .post('/users')
+    .post('/users/create')
     .send({email: 'test1@email.com', password: '01234567', role: 'developer'});
   t.is(res.status, 409);
 });
 
 test('Signup: Fail => missing password', async (t) => {
   const res = await request(app)
-    .post('/users')
+    .post('/users/create')
     .send({email: 'test1@email.com', role: 'developer'});
   t.is(res.status, 400);
 });
 
 test('Signup: Fail => incorrect password', async (t) => {
   const res = await request(app)
-    .post('/users')
+    .post('/users/create')
     .send({email: 'test1@email.com', password: '0123467', role: 'developer'});
   t.is(res.status, 400);
 });
 
 test('Signup: Fail => empty password', async (t) => {
   const res = await request(app)
-    .post('/users')
+    .post('/users/create')
     .send({email: 'test1@email.com', password: '        ', role: 'developer'});
   t.is(res.status, 400);
 });
 
 test('Signup: Fail => missing role', async (t) => {
   const res = await request(app)
-    .post('/users')
+    .post('/users/create')
     .send({email: 'test1@email.com', password: '01234567'});
   t.is(res.status, 400);
 });
 
 test('Signup: Fail => incorrect role', async (t) => {
   const res = await request(app)
-    .post('/users')
+    .post('/users/create')
     .send({email: 'test1@email.com', password: '01234567', role: 'lamouchefatale'});
   t.is(res.status, 400);
 });
 
 test('Signup: Fail => missing email', async (t) => {
   const res = await request(app)
-    .post('/users')
+    .post('/users/create')
     .send({password: '01234567', role: 'developer'});
   t.is(res.status, 400);
 });
 
 test('Signup: Fail => incorrect email', async (t) => {
   const res = await request(app)
-    .post('/users')
+    .post('/users/create')
     .send({email: 'iamnotanemail', password: '01234567', role: 'developer'});
   t.is(res.status, 400);
 });
