@@ -14,6 +14,10 @@ A microservice that provides authentication / authorization features.
 $ npm i
 ```
 
+- Create .env file based on .env.sample
+
+- Configure microservice [constants](./src/utilities/validation/constants.js) based on your needs
+
 ### Development
 
 ```bash
