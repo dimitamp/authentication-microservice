@@ -89,7 +89,7 @@
             "group": "Error 4xx",
             "optional": false,
             "field": "UserDoesntExist",
-            "description": "<p>A user with this e-mail not found.</p>"
+            "description": "<p>User not found.</p>"
           },
           {
             "group": "Error 4xx",
@@ -119,14 +119,14 @@
             "group": "Error 4xx",
             "optional": false,
             "field": "InvalidPassword",
-            "description": "<p>Invalid required parameter e-mail.</p>"
+            "description": "<p>Invalid required parameter password.</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 401 Authentication error\n{\n  \"status\": 401\n  \"message\": \"Authentication Error: A user with this e-mail  not found.\"\n}",
+          "content": "HTTP/1.1 401 Authentication error\n{\n  \"status\": 401\n  \"message\": \"Authentication Error: User not found.\"\n}",
           "type": "json"
         },
         {
@@ -235,7 +235,7 @@
             "group": "Error 4xx",
             "optional": false,
             "field": "UserDoesntExist",
-            "description": "<p>A user with this id doesnt exist.</p>"
+            "description": "<p>User doesn't exist.</p>"
           }
         ]
       },
@@ -265,7 +265,7 @@
   },
   {
     "type": "post",
-    "url": "/users/",
+    "url": "/users/create",
     "title": "Creates a new User",
     "name": "PostUser",
     "group": "User",
@@ -365,7 +365,7 @@
             "group": "Error 4xx",
             "optional": false,
             "field": "UserAlreadyExists",
-            "description": "<p>A user with this e-mail already exists.</p>"
+            "description": "<p>User already exists.</p>"
           },
           {
             "group": "Error 4xx",
@@ -389,14 +389,14 @@
             "group": "Error 4xx",
             "optional": false,
             "field": "InvalidPassword",
-            "description": "<p>Invalid required parameter e-mail.</p>"
+            "description": "<p>Invalid required parameter password.</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 409 Resource Conflict\n{\n  \"status\": 409\n  \"message\": \"Registration Error: A user with this e-mail  already exists.\"\n}",
+          "content": "HTTP/1.1 409 Resource Conflict\n{\n  \"status\": 409\n  \"message\": \"Registration Error: User already exists.\"\n}",
           "type": "json"
         },
         {
@@ -472,13 +472,13 @@
             "group": "Error 4xx",
             "optional": false,
             "field": "InvalidPassword",
-            "description": "<p>Invalid required parameter e-mail.</p>"
+            "description": "<p>Invalid required parameter password.</p>"
           },
           {
             "group": "Error 4xx",
             "optional": false,
             "field": "UserDoesntExist",
-            "description": "<p>A user with this id doesnt exist.</p>"
+            "description": "<p>User doesn't exist.</p>"
           }
         ]
       },
@@ -558,7 +558,7 @@
             "group": "Error 4xx",
             "optional": false,
             "field": "UserDoesntExist",
-            "description": "<p>A user with this id doesnt exist.</p>"
+            "description": "<p>User doesn't exist.</p>"
           }
         ]
       },

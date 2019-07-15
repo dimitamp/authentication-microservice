@@ -1,5 +1,5 @@
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\index.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/index.js
 FN:37,(anonymous_0)
 FNF:1
 FNH:1
@@ -40,7 +40,7 @@ BRF:4
 BRH:2
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\config\index.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/config/index.js
 FNF:0
 FNH:0
 DA:1,7
@@ -51,7 +51,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\config\mongoose.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/config/mongoose.js
 FN:17,(anonymous_0)
 FNF:1
 FNH:1
@@ -69,7 +69,7 @@ BRF:2
 BRH:1
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\middlewares\authorization.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/middlewares/authorization.js
 FN:7,(anonymous_0)
 FN:13,(anonymous_1)
 FN:18,(anonymous_2)
@@ -118,7 +118,7 @@ BRF:5
 BRH:5
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\middlewares\error.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/middlewares/error.js
 FN:5,(anonymous_0)
 FN:10,(anonymous_1)
 FN:16,(anonymous_2)
@@ -142,7 +142,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\middlewares\identification.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/middlewares/identification.js
 FN:3,(anonymous_0)
 FN:9,(anonymous_1)
 FN:10,(anonymous_2)
@@ -165,7 +165,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\middlewares\index.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/middlewares/index.js
 FNF:0
 FNH:0
 DA:1,7
@@ -179,7 +179,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\middlewares\validation.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/middlewares/validation.js
 FN:3,(anonymous_0)
 FNF:1
 FNH:1
@@ -197,7 +197,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\models\reset.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/models/reset.js
 FNF:0
 FNH:0
 DA:2,7
@@ -213,7 +213,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\models\user.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/models/user.js
 FN:39,(anonymous_0)
 FN:48,(anonymous_1)
 FNF:2
@@ -242,7 +242,7 @@ BRF:2
 BRH:1
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\routes\docs.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/routes/docs.js
 FN:9,(anonymous_0)
 FNF:1
 FNH:0
@@ -253,14 +253,15 @@ DA:4,7
 DA:6,7
 DA:8,7
 DA:9,7
-DA:12,7
-LF:7
+DA:10,0
+DA:14,7
+LF:8
 LH:7
 BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\routes\index.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/routes/index.js
 FNF:0
 FNH:0
 DA:1,7
@@ -278,7 +279,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\routes\root.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/routes/root.js
 FN:8,(anonymous_0)
 FNF:1
 FNH:1
@@ -295,7 +296,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\routes\users.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/routes/users.js
 FN:151,(anonymous_0)
 FN:152,(anonymous_1)
 FN:236,(anonymous_2)
@@ -398,7 +399,7 @@ BRF:14
 BRH:14
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\utilities\authentication\helpers.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/utilities/authentication/helpers.js
 FN:10,(anonymous_0)
 FN:13,(anonymous_1)
 FN:20,(anonymous_2)
@@ -424,7 +425,7 @@ BRF:1
 BRH:1
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\utilities\authentication\index.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/utilities/authentication/index.js
 FNF:0
 FNH:0
 DA:1,7
@@ -435,7 +436,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\utilities\validation\constants.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/utilities/validation/constants.js
 FNF:0
 FNH:0
 DA:1,7
@@ -448,7 +449,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\utilities\validation\index.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/utilities/validation/index.js
 FNF:0
 FNH:0
 DA:1,7
@@ -460,7 +461,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:C:\Users\dtamp\Desktop\authentication-microservice\src\utilities\validation\schemas.js
+SF:/home/lamouchefatale/Desktop/authentication-microservice/src/utilities/validation/schemas.js
 FNF:0
 FNH:0
 DA:1,7
