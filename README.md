@@ -6,7 +6,7 @@ A microservice that provides authentication / authorization features.
 [![codecov](https://codecov.io/gh/dimitamp/authentication-microservice/branch/master/graph/badge.svg?token=Fc3HHwj5VH)](https://codecov.io/gh/dimitamp/authentication-microservice)
 [![license](https://img.shields.io/github/license/dimitamp/authentication-microservice.svg)](./LICENSE)
 ## Try it out
- [Demo](https://authentication-microservice.now.sh)
+ [Demo](http://83.212.107.194:4000)
 
 ## Documentation 
   [Read more](http://83.212.107.194:5000/docs)
