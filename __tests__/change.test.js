@@ -5,7 +5,7 @@ test.before('Setup', async (t) => {
   const user = await new User({
     email: 'test5@email.com',
     password: '01234567',
-    role: 'developer'
+    role: 'user'
   }).save();
   const reset = await new Reset({
     email: user.email,

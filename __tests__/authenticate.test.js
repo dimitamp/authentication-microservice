@@ -4,7 +4,7 @@ test.before('Setup', async (t) => {
   const user = await new User({
     email: 'test2@email.com',
     password: '01234567',
-    role: 'developer'
+    role: 'user'
   }).save();
   t.context = user;
 });
