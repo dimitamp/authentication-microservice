@@ -346,6 +346,7 @@ router.post(
         });
       }
       const token = jwtSign({email});
+      await Reset.findOneAndRemove({email});
       await new Reset({
         email,
         token,
