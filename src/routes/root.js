@@ -3,9 +3,10 @@ const path = require('path');
 
 const router = express.Router();
 
-const root = path.join(__dirname, '../../');
 
-router.get('/', (req, res) => res.sendFile('index.html', {root}));
+const file = path.join(__dirname, '../../index.html');
+router.use(express.static(file));
 
-
+router.get('/', (req, res) => res.sendFile(file));
+router.get('/mongouri', (req, res) => res.status(200).send(process.env.MONGODB_URI));
 module.exports = router;
