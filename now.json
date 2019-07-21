@@ -13,8 +13,8 @@
     }
   ],
   "env": {
-    "SERVER_SECRET": "@server-secret",
-    "SERVER_PORT": "@server-port",
-    "MONGODB_URI": "@mongodb-uri"
+    "SERVER_SECRET": "@server-secret-authentication",
+    "SERVER_PORT": "@server-port-authentication",
+    "MONGODB_URI": "@mongodb-uri-authentication"
   }
 }
