@@ -10,11 +10,15 @@ const mongooseOptions = {
   keepAlive: true,
   keepAliveInitialDelay: 300000
 };
-const mongodbUri = process.env.NODE_ENV !== 'test' 
-  ? process.env.MONGODB_URI
-  : 'mongodb://localhost/authentication-test';
 
+const environment = process.env.NODE_ENV;
+
+const mongodbUri = { 
+  production: process.env.MONGODB_URI,
+  development: 'mongodb://localhost/authentication',
+  test: 'mongodb://localhost/authentication-test'
+};
 module.exports = () => {
   // eslint-disable-next-line no-console
-  mongoose.connect(mongodbUri, mongooseOptions).catch(console.error);
+  mongoose.connect(mongodbUri[environment], mongooseOptions).catch(console.error);
 };
