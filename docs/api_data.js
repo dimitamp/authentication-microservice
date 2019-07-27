@@ -390,6 +390,18 @@ define({ "api": [
             "optional": false,
             "field": "InvalidPassword",
             "description": "<p>Invalid required parameter password.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "MissingRole",
+            "description": "<p>Missing required parameter role.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidRole",
+            "description": "<p>Invalid required parameter role.</p>"
           }
         ]
       },
@@ -417,6 +429,16 @@ define({ "api": [
         {
           "title": "Error-Response:",
           "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: Password must have at least 8 characters.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: Role is required.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: Role must role must be one of the following values: user\"\n}",
           "type": "json"
         }
       ]
@@ -576,6 +598,181 @@ define({ "api": [
         {
           "title": "Error-Response:",
           "content": "HTTP/1.1 404 Resource not found\n{\n  \"status\": 404\n  \"message\": \"Resource Error: User not found.\"\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "patch",
+    "url": "/users/:id",
+    "title": "Updates a User",
+    "name": "UpdateUser",
+    "group": "User",
+    "version": "1.0.0",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>Authorization token</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQwYmQ0MWMyYjg1YmFhNTAzMDAw\n          MDJkIiwiZW1haWwiOiJmb25pa2hteWdhQGdtYWlsLmNvbSIsImlhdCI6MTU2MjEwMjc4N30.I64zY_Fj-\n          D30vttEDMaQBPaheuTLGX1F1Ap5pynpOBs\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>User's unique id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "email",
+            "description": "<p>Optional email</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "size": "8..",
+            "optional": true,
+            "field": "password",
+            "description": "<p>Optional password</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"role1\"",
+              "\"role2\"",
+              "\"role3\""
+            ],
+            "optional": true,
+            "field": "role",
+            "description": "<p>Optional role</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  ok: true\n  message: \"User updated\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "src/routes/users.js",
+    "groupTitle": "User",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "TokenMissing",
+            "description": "<p>No authorization token was provided.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidToken",
+            "description": "<p>Failed to verify token.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InsufficientPrivileges",
+            "description": "<p>Parameter id doesnt match decoded token's id.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "UserDoesntExist",
+            "description": "<p>User doesn't exist.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidEmail",
+            "description": "<p>Invalid required parameter e-mail.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidPassword",
+            "description": "<p>Invalid required parameter password.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "InvalidRole",
+            "description": "<p>Invalid required parameter role.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "MissingParameters",
+            "description": "<p>Missing required parameters.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 403 Authorization Error\n{\n  \"status\": 403\n  \"message\": \"Authorization Error: token missing.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 403 Authorization Error\n{\n  \"status\": 403\n  \"message\": \"Authorization Error: Failed to verify token.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 403 Authorization Error\n{\n  \"status\": 403\n  \"message\": \"Authorization Error: Insufficient privileges.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Resource not found\n{\n  \"status\": 404\n  \"message\": \"Resource Error: User not found.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: E-mail is invalid.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: Password must have at least 8 characters.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: Role must role must be one of the following values: user\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"status\": 400\n  \"message\": \"Validation Error: Missing Parameters\"\n}",
           "type": "json"
         }
       ]

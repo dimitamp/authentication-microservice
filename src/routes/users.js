@@ -96,6 +96,38 @@ const Reset = require('../models/reset');
  *     }
  */
 
+/** 
+ * @apiDefine MissingRoleError
+ * @apiError MissingRole Missing required parameter role.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": 400
+ *       "message": "Validation Error: Role is required."
+ *     }
+ */
+
+/**
+ * @apiDefine InvalidRoleError
+ * @apiError InvalidRole Invalid required parameter role.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": 400
+ *       "message": "Validation Error: Role must role must be one of the following values: user"
+ *     }
+ */
+
+/**
+ * @apiDefine MissingParametersError
+ * @apiError MissingParameters Missing required parameters.
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": 400
+ *       "message": "Validation Error: Missing Parameters"
+ *     }
+ */
 
 /**
  * @api {post} /users/create Creates a new User
@@ -145,6 +177,8 @@ const Reset = require('../models/reset');
  * @apiuse InvalidEmailError
  * @apiUse MissingPasswordError
  * @apiUse InvalidPasswordError
+ * @apiUse MissingRoleError
+ * @apiUse InvalidRoleError
  */
 router.post(
   '/create',
@@ -420,5 +454,66 @@ router.post(
     }
   }
 );
+
+/**
+ * @api {patch} /users/:id Updates a User
+ * @apiName UpdateUser
+ * @apiGroup User
+ * @apiVersion 1.0.0
+ * @apiHeader {String} Authorization Authorization token
+ * @apiHeaderExample {json} Header-Example:
+ *     {
+ *       "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQwYmQ0MWMyYjg1YmFhNTAzMDAw
+ *               MDJkIiwiZW1haWwiOiJmb25pa2hteWdhQGdtYWlsLmNvbSIsImlhdCI6MTU2MjEwMjc4N30.I64zY_Fj-
+ *               D30vttEDMaQBPaheuTLGX1F1Ap5pynpOBs"
+ *     }
+ *
+ * @apiParam {String} id User's unique id
+ * @apiParam {String} [email] Optional email
+ * @apiParam {String{8..}} [password] Optional password
+ * @apiParam {String="role1","role2","role3"} [role] Optional role
+ * 
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       ok: true
+ *       message: "User updated"
+ *     }
+ * 
+ * @apiUse MissingTokenError
+ * @apiUse InvalidTokenError
+ * @apiUse InsufficientPrivilegesError
+ * @apiUse UserNotFoundError
+ * @apiUse InvalidEmailError
+ * @apiUse InvalidPasswordError
+ * @apiUse InvalidRoleError
+ * @apiUse MissingParametersError
+ */
+
+router.patch(
+  '/:id', 
+  authorization,
+  identification,
+  (req, res, next) => validation(req, res, next, 'update'),
+  async (req, res, next) => {
+    const {id} = req.params;
+    try {
+      const user = await User.findByIdAndUpdate(id, {...req.body});
+      if (user) {
+        return res.json({
+          ok: true,
+          message: 'User was updated'
+        }); 
+      } 
+      return next({
+        status: 404,
+        message: 'Resource error: User not found.'
+      });
+    } catch (error) {
+      return next(error);
+    }
+  }
+);
+
 
 module.exports = router;
