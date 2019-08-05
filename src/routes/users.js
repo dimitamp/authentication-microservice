@@ -259,6 +259,15 @@ router.post(
  *       "message": "Authentication Error: Password doesn't match with given e-mail."
  *     }
  * 
+ * @apiError EmailNotVerified User e-mail is not verified.
+ *
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 401 Resource error
+ *     {
+ *       "status": 401
+ *       "message": "Authentication Error: E-mail not verified."
+ *     }
+ * 
  * @apiUse MissingEmailError
  * @apiuse InvalidEmailError
  * @apiUse MissingPasswordError
@@ -276,6 +285,12 @@ router.post(
         return next({
           status: 401,
           message: 'Authentication Error: User not found.'
+        });
+      }
+      if (!user.activated) {
+        return next({
+          status: 401,
+          message: 'Authentication Error: E-mail not verified!'
         });
       }
       if (!user.comparePassword(password, user.password)) {

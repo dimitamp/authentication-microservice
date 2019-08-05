@@ -4,7 +4,8 @@ test.before('Setup', async (t) => {
   const user = await new User({
     email: 'test2@email.com',
     password: '01234567',
-    role: 'user'
+    role: 'user',
+    activated: false
   }).save();
   t.context = user;
 });
@@ -13,6 +14,14 @@ test.after('Cleanup', async () => {
   await User.deleteOne({email: 'test2@email.com'});
 });
 
+
+test.serial('Authenticate: Fail => e-mail not verified', async (t) => {
+  const res = await request(app)
+    .post('/users/authenticate')
+    .send({email: 'test2@email.com', password: '01234567'});
+  await User.updateOne({email: 'test2@email.com'}, {activated: true});
+  t.is(res.status, 401);
+});
 
 test('Authenticate: Success', async (t) => {
   const res = await request(app)
@@ -26,13 +35,13 @@ test('Authenticate: Success', async (t) => {
   t.is(res.body.user.role, t.context.role);
 });
 
-
 test('Authenticate: Fail => password mismatch', async (t) => {
   const res = await request(app)
     .post('/users/authenticate')
     .send({email: 'test2@email.com', password: 'lollipop'});
   t.is(res.status, 401);
 });
+
 
 test('Authenticate: Fail => non existing user', async (t) => {
   const res = await request(app)

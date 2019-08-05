@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const beautifyUnique = require('mongoose-beautiful-unique-validation');
 const {passwordDigest, comparePassword} = require('../utilities/authentication/helpers');
-const {constants: {min, roles}} = require('../utilities/validation');
+const {constants: {min, roles, activated}} = require('../utilities/validation');
 
 mongoose.pluralize(null);
 
@@ -26,8 +26,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       enum: roles
     },
-  },
-  {timestamps: true}
+    activated: {
+      type: Boolean,
+      default: activated
+    }
+  }, {timestamps: true}
 );
 
 // Plugin for Mongoose that turns duplicate errors into regular Mongoose validation errors.

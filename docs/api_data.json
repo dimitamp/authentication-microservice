@@ -100,6 +100,12 @@
           {
             "group": "Error 4xx",
             "optional": false,
+            "field": "EmailNotVerified",
+            "description": "<p>User e-mail is not verified.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
             "field": "MissingEmail",
             "description": "<p>Missing required parameter e-mail.</p>"
           },
@@ -132,6 +138,11 @@
         {
           "title": "Error-Response:",
           "content": "HTTP/1.1 401 Authentication error\n{\n  \"status\": 401\n  \"message\": \"Authentication Error: Password doesn't match with given e-mail.\"\n}",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 401 Resource error\n{\n  \"status\": 401\n  \"message\": \"Authentication Error: E-mail not verified.\"\n}",
           "type": "json"
         },
         {
