@@ -1,16 +1,19 @@
 const yup = require('yup');
 const {min, roles} = require('./constants');
 
-export const email = yup
+const email = yup
   .string()
   .lowercase()
   .trim()
   .email();
 
-export const password = yup
+const password = yup
   .string()
   .trim()
   .min(min);
 
-export const role = yup
+const role = yup
   .string().oneOf(roles);
+
+module.exports = {role, password, email};
+
