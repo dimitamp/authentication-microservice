@@ -1,21 +1,8 @@
 const {isNil} = require('ramda');
 
 const yup = require('yup');
-const {min, roles} = require('./constants');
 
-const email = yup
-  .string()
-  .lowercase()
-  .trim()
-  .email();
-
-const password = yup
-  .string()
-  .trim()
-  .min(min);
-
-const role = yup
-  .string().oneOf(roles);
+const {email, password, role} = require('./fields');
 
 const request = yup.object().shape({email: email.required()});
 
