@@ -1,23 +1,18 @@
-const {test, User, Reset, request, app} = require('./common');
+const {
+  test,
+  request,
+  app,
+  before,
+  after,
+} = require('./common');
 
-test.before('Setup', async (t) => {
-  const user = await new User({
-    email: 'test4@email.com',
-    password: '01234567',
-    role: 'user'
-  }).save();
-  t.context = user;
-});
-
-test.after('Cleanup', async () => {
-  await User.deleteOne({email: 'test4@email.com'});
-  await Reset.deleteOne({email: 'test4@email.com'});
-});
+test.before(before);
+test.after.always(after);
 
 test('Reset: Success', async (t) => {
   const res = await request(app)
     .post('/users/resetpassword')
-    .send({email: t.context.email});
+    .send({email: t.context.activated.email});
   t.is(res.status, 200);
   t.assert(res.body.token);
 });

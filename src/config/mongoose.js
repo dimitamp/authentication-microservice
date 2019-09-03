@@ -16,7 +16,6 @@ const environment = process.env.NODE_ENV;
 const mongodbUri = { 
   production: process.env.MONGODB_URI,
   development: 'mongodb://localhost/authentication',
-  test: 'mongodb://localhost/authentication-test'
 };
 module.exports = () => {
   // eslint-disable-next-line no-console

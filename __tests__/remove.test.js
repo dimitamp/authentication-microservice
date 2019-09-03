@@ -1,38 +1,30 @@
-const {test, User, request, app} = require('./common');
-const {helpers: {jwtSign}} = require('../src/utilities/authentication');
+const {
+  test,
+  request,
+  app,
+  before,
+  after,
+} = require('./common');
 
-test.before('Setup', async (t) => {
-  const user = await new User({
-    email: 'test3@email.com',
-    password: '01234567',
-    role: 'user'
-  }).save();
-  t.context = {
-    user,
-    token: jwtSign({email: user.email, id: user._id, role: user.role})  
-  };
-});
-
-test.after('Cleanup', async () => {
-  await User.deleteOne({email: 'test3@email.com'});
-});
+test.before(before);
+test.after.always(after);
 
 test('Remove: Success', async (t) => {
   const res = await request(app)
-    .delete(`/users/${t.context.user.id}`)
+    .delete(`/users/${t.context.activated.id}`)
     .set('Authorization', t.context.token);
   t.is(res.status, 200);
 });
 
 test('Remove: Fail => missing token', async (t) => {
   const res = await request(app)
-    .delete(`/users/${t.context.user.id}`);
+    .delete(`/users/${t.context.activated.id}`);
   t.is(res.status, 403);
 });
 
 test('Remove: Fail => invalid token', async (t) => {
   const res = await request(app)
-    .delete(`/users/${t.context.user.id}`)
+    .delete(`/users/${t.context.activated.id}`)
     .set('Authorization', 'lollipop');
   t.is(res.status, 403);
 });
@@ -46,7 +38,7 @@ test('Remove: Fail => insufficient privileges', async (t) => {
 
 test('Remove: Fail => non existing user', async (t) => {
   const res = await request(app)
-    .delete(`/users/${t.context.user.id}`)
-    .set('Authorization', t.context.token);
+    .delete('/users/5d332f49dca6a44419c48fff')
+    .set('Authorization', t.context.invalidToken);
   t.is(res.status, 404);
 });

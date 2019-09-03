@@ -20,12 +20,10 @@ app.use(cors());
 app.use(compression());
 if (process.env.NODE_ENV !== 'test') {
   app.use(logger('dev'));
+  mongoose();
 }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
-// Mongo configuration
-mongoose();
 
 // Routes
 app.use('/', routes);
