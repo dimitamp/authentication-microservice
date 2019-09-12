@@ -21,6 +21,13 @@ test('Signup: Success', async (t) => {
   t.is(res.body.user.role, 'user');
 });
 
+test('Signup: Fail => cannot create admin', async (t) => {
+  const res = await request(app)
+    .post('/users/create')
+    .send({...t.context.activated, role: 'admin'});
+  t.is(res.status, 400);
+});
+
 test('Signup: Fail => user exists', async (t) => {
   const res = await request(app)
     .post('/users/create')

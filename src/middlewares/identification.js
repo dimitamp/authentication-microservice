@@ -1,4 +1,4 @@
-const {ifElse, equals, path} = require('ramda');
+const {ifElse, equals, path, or} = require('ramda');
 
 module.exports = (req, res, next) => {
   /**
@@ -6,7 +6,10 @@ module.exports = (req, res, next) => {
      * @description Middleware that tests
      */
   ifElse(
-    r => equals(path(['params', 'id'], r), path(['decoded', 'id'], r)),
+    r => or(
+      equals(path(['params', 'id'], r), path(['decoded', 'id'], r)),
+      equals(path(['decoded', 'role'], r), 'admin')
+    ),
     () => next(),
     () => next({
       status: 403,

@@ -16,6 +16,9 @@ const register = yup.object().shape({
   email: email.required(),
   password: password.required(),
   role: role.required()
+}).test({
+  message: 'You cannot create admin user. Request it from the platform manager',
+  test: ({role: r}) => (r !== 'admin')
 });
 
 const update = yup.object().shape({

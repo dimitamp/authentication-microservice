@@ -16,6 +16,7 @@ module.exports = (req, res, next) => {
           || path(['headers', 'authorization'], r),
     ifElse(
       t => !isNil(t) && startsWith('Bearer ', t),
+      /* istanbul ignore next */
       t => slice(7, t.length, t).trimLeft(),
       identity
     ),

@@ -7,6 +7,7 @@ const docs = path.join(__dirname, '../../docs');
 
 router.use(express.static(docs));
 router.get('/*', (req, res) => {
+  /* istanbul ignore next */
   res.sendFile('index.html', {root: docs});
 });
 

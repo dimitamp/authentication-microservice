@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const {pipe, has, ifElse, assoc, identity, allPass, propEq} = require('ramda');
 
+/* istanbul ignore next */
 const withFormatMessageForProduction = ifElse(
   allPass([propEq('status', 500), () => process.env.NODE_ENV === 'production']),
   assoc('message', 'Internal server error occurred.'),

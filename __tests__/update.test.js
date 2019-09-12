@@ -17,6 +17,22 @@ test('Update: Success', async (t) => {
   t.is(res.status, 200);
 });
 
+test('Update: Fail => cannot promote to admin if requester is not admin', async (t) => {
+  const res = await request(app)
+    .patch(`/users/${t.context.activated.id}`)
+    .set('Authorization', t.context.token)
+    .send({role: 'admin'});
+  t.is(res.status, 403);
+});
+
+test('Update: Success => promote to admin', async (t) => {
+  const res = await request(app)
+    .patch(`/users/${t.context.unactivated.id}`)
+    .set('Authorization', t.context.adminToken)
+    .send({role: 'admin'});
+  t.is(res.status, 200);
+});
+
 test('Update: Fail => missing parameters', async (t) => {
   const res = await request(app)
     .patch(`/users/${t.context.activated.id}`)

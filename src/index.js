@@ -18,6 +18,7 @@ app.use(cors());
 
 // App configuration
 app.use(compression());
+/* istanbul ignore if  */
 if (process.env.NODE_ENV !== 'test') {
   app.use(logger('dev'));
   mongoose();

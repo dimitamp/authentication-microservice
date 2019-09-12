@@ -16,4 +16,3 @@ const role = yup
   .string().oneOf(roles);
 
 module.exports = {role, password, email};
-

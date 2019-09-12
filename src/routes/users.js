@@ -203,6 +203,7 @@ router.post(
         token: jwtSign({email, role, id: newUser._id})
       });
     } catch (error) {
+      /* istanbul ignore next */
       return next(error);
     }
   }
@@ -304,6 +305,7 @@ router.post(
         token: jwtSign({email, id: user._id, role: user.role})
       });
     } catch (error) {
+      /* istanbul ignore next */
       return next(error);
     }
   }
@@ -356,6 +358,7 @@ router.delete(
         message: 'Resource error: User not found.'
       });
     } catch (error) {
+      /* istanbul ignore next */
       return next(error);
     }
   }
@@ -402,6 +405,7 @@ router.post(
       }).save();
       return res.json({token});
     } catch (error) {
+      /* istanbul ignore next */
       return next(error);
     }
   }
@@ -465,6 +469,7 @@ router.post(
         message: 'Password was changed.'
       });
     } catch (error) {
+      /* istanbul ignore next */
       return next(error);
     }
   }
@@ -513,6 +518,15 @@ router.patch(
   async (req, res, next) => {
     const {id} = req.params;
     try {
+      const {role: updateRole} = req.body;
+      const {role: requestRole} = req.decoded;
+      
+      if (updateRole === 'admin' && requestRole !== 'admin') {
+        return next({
+          status: 403,
+          message: 'Authorization Error: Only an admin can promote a user to admin.'
+        });
+      }
       const user = await User.findByIdAndUpdate(id, {...req.body});
       if (user) {
         return res.json({
@@ -525,6 +539,7 @@ router.patch(
         message: 'Resource error: User not found.'
       });
     } catch (error) {
+      /* istanbul ignore next */
       return next(error);
     }
   }

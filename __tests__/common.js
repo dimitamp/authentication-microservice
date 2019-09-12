@@ -35,6 +35,7 @@ const before = async (t) => {
   const activated = await new User(data.activated).save();
   const unactivated = await new User(data.unactivated).save();
   const token = jwtSign({email: activated.email, id: activated.id, role: activated.role});
+  const adminToken = jwtSign({email: activated.email, id: activated.id, role: 'admin'});
   const invalidToken = jwtSign({email: 'bla@email.com', id: '5d332f49dca6a44419c48fff', role: activated.role});
   const reset = await new Reset({email: activated.email, token}).save();
   // feed context
@@ -43,6 +44,7 @@ const before = async (t) => {
     unactivated: {...data.unactivated, id: unactivated.id},
     token,
     invalidToken,
+    adminToken,
     reset: reset.token
   };
 };

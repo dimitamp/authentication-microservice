@@ -18,6 +18,6 @@ const mongodbUri = {
   development: 'mongodb://localhost/authentication',
 };
 module.exports = () => {
-  // eslint-disable-next-line no-console
-  mongoose.connect(mongodbUri[environment], mongooseOptions).catch(console.error);
+  /* istanbul ignore next */
+  mongoose.connect(mongodbUri[environment], mongooseOptions);
 };
