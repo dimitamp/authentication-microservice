@@ -1,4 +1,5 @@
 const express = require('express');
+const {path} = require('ramda');
 const {validation, authorization, identification} = require('../middlewares');
 const {helpers: {jwtSign}} = require('../utilities/authentication');
 
@@ -183,6 +184,7 @@ const Reset = require('../models/reset');
 router.post(
   '/create',
   (req, res, next) => validation(req, res, next, 'register'),
+  (req, res, next) => (req.body.role === 'admin' ? authorization(req, res, next) : next()),
   async (req, res, next) => {
     const {email, password, role} = req.body;
     try {
@@ -191,6 +193,12 @@ router.post(
         return next({
           status: 409,
           message: 'Registration Error: User already exists.'
+        });
+      }
+      if (role === 'admin' && path(['decoded', 'role'], req) !== 'admin') {
+        return next({
+          status: 403,
+          message: 'Authorization Error: Insufficient privileges'
         });
       }
       const newUser = await new User({
@@ -533,7 +541,7 @@ router.patch(
           status: 404,
           message: 'Resource error: User not found.'
         });
-      }   
+      }
       Object.keys(req.body).forEach((key) => {
         user[key] = req.body[key];
       });
@@ -541,7 +549,7 @@ router.patch(
       return res.json({
         ok: true,
         message: 'User was updated'
-      });
+      }); 
     } catch (error) {
       /* istanbul ignore next */
       return next(error);
