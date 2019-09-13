@@ -528,19 +528,19 @@ router.patch(
         });
       }
       const user = await User.findById(id);
+      if (!user) {
+        return next({
+          status: 404,
+          message: 'Resource error: User not found.'
+        });
+      }   
       Object.keys(req.body).forEach((key) => {
         user[key] = req.body[key];
       });
       await user.save();
-      if (user) {
-        return res.json({
-          ok: true,
-          message: 'User was updated'
-        }); 
-      } 
-      return next({
-        status: 404,
-        message: 'Resource error: User not found.'
+      return res.json({
+        ok: true,
+        message: 'User was updated'
       });
     } catch (error) {
       /* istanbul ignore next */
