@@ -527,7 +527,11 @@ router.patch(
           message: 'Authorization Error: Only an admin can promote a user to admin.'
         });
       }
-      const user = await User.findByIdAndUpdate(id, {...req.body});
+      const user = await User.findById(id);
+      Object.keys(req.body).forEach((key) => {
+        user[key] = req.body[key];
+      });
+      await user.save();
       if (user) {
         return res.json({
           ok: true,

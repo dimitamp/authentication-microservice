@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
      * @description Middleware that tests
      */
   ifElse(
-    r => or(
+    (r) => or(
       equals(path(['params', 'id'], r), path(['decoded', 'id'], r)),
       equals(path(['decoded', 'role'], r), 'admin')
     ),

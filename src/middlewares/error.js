@@ -14,8 +14,8 @@ module.exports = (error, req, res, next) =>
      * @description Middleware that handles errors
      */
   pipe(
-    e => ({...e, message: e.message}),
+    (e) => ({...e, message: e.message}),
     ifElse(has('status'), identity, assoc('status', 500)),
     withFormatMessageForProduction,
-    fError => res.status(fError.status).json(fError)
+    (fError) => res.status(fError.status).json(fError)
   )(error);

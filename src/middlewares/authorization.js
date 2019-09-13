@@ -10,14 +10,14 @@ module.exports = (req, res, next) => {
      * @description Middleware that checks a token's presence and validity in a request
      */
   pipe(
-    r =>
+    (r) =>
       path(['query', 'token'], r)
           || path(['headers', 'x-access-token'], r)
           || path(['headers', 'authorization'], r),
     ifElse(
-      t => !isNil(t) && startsWith('Bearer ', t),
+      (t) => !isNil(t) && startsWith('Bearer ', t),
       /* istanbul ignore next */
-      t => slice(7, t.length, t).trimLeft(),
+      (t) => slice(7, t.length, t).trimLeft(),
       identity
     ),
     ifElse(
@@ -27,10 +27,10 @@ module.exports = (req, res, next) => {
           message: 'Authorization Error: token missing.',
           status: 403
         }),
-      token =>
+      (token) =>
         jwt.verify(token, secret, (e, d) =>
           ifElse(
-            err => !isNil(err),
+            (err) => !isNil(err),
             () =>
               next({
                 message: 'Authorization Error: Failed to verify token.',

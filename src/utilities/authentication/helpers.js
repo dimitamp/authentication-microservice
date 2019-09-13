@@ -10,7 +10,7 @@ module.exports = {
   passwordDigest: (password, saltWorkFactor = 10) =>
     pipe(
       genSaltSync,
-      salt => hashSync(password, salt)
+      (salt) => hashSync(password, salt)
     )(saltWorkFactor),
 
   /**
@@ -23,5 +23,5 @@ module.exports = {
      * @name jwtSign
      * @description Is used to sign jwt with payload (after authenticate)
      */
-  jwtSign: payload => sign(payload, process.env.SERVER_SECRET),
+  jwtSign: (payload) => sign(payload, process.env.SERVER_SECRET),
 };
