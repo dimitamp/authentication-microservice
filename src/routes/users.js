@@ -338,7 +338,12 @@ router.post(
  *     HTTP/1.1 200 OK
  *     {
  *       ok: true
- *       message: "User deleted"
+ *       message: "User deleted",
+ *       user: {
+ *           "id": "5d0bd41c2b85baa50300002d",
+ *           "email": "test@email.com",
+ *           "role": "role1"
+ *       }
  *     }
  * 
  * @apiUse MissingTokenError
@@ -363,7 +368,8 @@ router.delete(
       }
       return next({
         status: 404,
-        message: 'Resource error: User not found.'
+        message: 'Resource error: User not found.',
+        user
       });
     } catch (error) {
       /* istanbul ignore next */
@@ -505,7 +511,12 @@ router.post(
  *     HTTP/1.1 200 OK
  *     {
  *       ok: true
- *       message: "User updated"
+ *       message: "User updated",
+ *       user: {
+ *           "id": "5d0bd41c2b85baa50300002d",
+ *           "email": "test@email.com",
+ *           "role": "role1"
+ *       }
  *     }
  * 
  * @apiUse MissingTokenError
@@ -548,7 +559,8 @@ router.patch(
       await user.save();
       return res.json({
         ok: true,
-        message: 'User was updated'
+        message: 'User was updated', 
+        user
       }); 
     } catch (error) {
       /* istanbul ignore next */
