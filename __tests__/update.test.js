@@ -15,6 +15,7 @@ test('Update: Success', async (t) => {
     .set('Authorization', t.context.token)
     .send({password: 'lollipop'});
   t.is(res.status, 200);
+  t.is(res.body.user._id, t.context.activated.id);
 });
 
 test('Update: Fail => cannot promote to admin if requester is not admin', async (t) => {

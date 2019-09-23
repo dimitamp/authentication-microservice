@@ -363,13 +363,13 @@ router.delete(
       if (user) {
         return res.json({
           ok: true,
-          message: 'User deleted'
+          message: 'User deleted',
+          user
         });
       }
       return next({
         status: 404,
         message: 'Resource error: User not found.',
-        user
       });
     } catch (error) {
       /* istanbul ignore next */

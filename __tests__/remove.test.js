@@ -14,6 +14,9 @@ test('Remove: Success', async (t) => {
     .delete(`/users/${t.context.activated.id}`)
     .set('Authorization', t.context.token);
   t.is(res.status, 200);
+  t.is(res.body.user._id, t.context.activated.id);
+  t.is(res.body.user.email, t.context.activated.email);
+  t.is(res.body.user.role, t.context.activated.role);
 });
 
 test('Remove: Fail => missing token', async (t) => {
