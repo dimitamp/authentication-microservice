@@ -41,7 +41,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-ava": "^7.1.0",
     "eslint-plugin-import": "^2.18.2",
-    "husky": "^3.0.5",
+    "husky": "^4.0.1",
     "lint-staged": "^9.2.5",
     "mongodb-memory-server": "^5.2.3",
     "nodemon": "^2.0.2",
