@@ -43,7 +43,7 @@
     "eslint-plugin-import": "^2.18.2",
     "husky": "^4.2.1",
     "lint-staged": "^10.0.7",
-    "mongodb-memory-server": "^5.2.3",
+    "mongodb-memory-server": "^6.2.4",
     "nodemon": "^2.0.2",
     "nyc": "^14.1.1",
     "supertest": "^4.0.2",
