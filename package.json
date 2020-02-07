@@ -45,7 +45,7 @@
     "lint-staged": "^10.0.7",
     "mongodb-memory-server": "^5.2.3",
     "nodemon": "^2.0.2",
-    "nyc": "^14.1.1",
+    "nyc": "^15.0.0",
     "supertest": "^4.0.2",
     "tap-nyan": "^1.1.0"
   },
